@@ -1,0 +1,152 @@
+#  R0--000
+#  R1--001
+#  R2--002
+#  R3--003
+#  R4--004
+#  R5--005
+#  R6--006
+
+# These two functions are written having vision of a list like
+# A = ['add', 'sub', 'mul', 'xor', 'or', 'and']
+# B = ['mov_imm', 'mov_reg', 'rs', 'ls']
+# C = ['div', 'not', 'cmp']
+# D = ['ld', 'st']
+# E = ['jmp', 'jlt', 'jgt', 'je']
+# F = ['hlt']
+
+# line5 = ["add","R0","R3","R4"]
+# given below is  a rough code to show working of add function
+# n = len(line5)
+# if (n=1):
+#     # Do something
+#     print()
+# .
+# .
+# .
+# .
+# .
+
+# elif(n==4):
+#     if (line5[0] is in A):
+#         add(line5[1],line5[2],line5[3])
+        
+
+# **************************************************************************************************************
+# Proper Fucntioning add function without considering the flag case
+"""
+def add(reg1, reg2, reg3):
+    Regs_dict = {"R0": "000","R1": "001","R2": "010","R3": "011","R4": "100","R5": "101","R6": "110"}
+
+    if all(key in Regs_dict for key in (reg1, reg2, reg3)):
+        result = "00000" + "00" + Regs_dict[reg1] + Regs_dict[reg2] + Regs_dict[reg3]
+        print(result)
+    else:
+        print("Syntax errors")
+    return None
+add("R1", "R2", "R3")
+"""
+
+# ****************************************************************************************************************************
+
+# Proper functioning subtract function without considering flag case
+"""
+def sub(reg1, reg2, reg3):
+    Regs_dict = {"R0": "000","R1": "001","R2": "010","R3": "011","R4": "100","R5": "101","R6": "110"}
+    if all(key in Regs_dict for key in (reg1, reg2, reg3)):
+        result = "00001" + "00" + Regs_dict[reg1] + Regs_dict[reg2] + Regs_dict[reg3]
+        print(result)
+    else:
+        print("Syntax errors")
+    return None
+sub("R1", "R2", "R3")
+"""
+
+# *********************************************************************************************************
+
+# Regs_dict = {"R0": "000","R1": "001","R2": "010","R3": "011","R4": "100","R5": "101","R6": "110"}
+# # code which type of move function to call reg-reg type or reg-imm type
+# if all(key in Regs_dict for key in (reg1, reg2)):
+#     mov1(lst[1],lst[2])#reg-reg type
+# else:
+#     if lst[1] in regs_dict:
+#         mov(lst[1],lst[2])#reg-imm type
+
+# immediate is a 7 bit binary
+
+# mov --- 00010
+# *****************************************************************************************************************
+"""
+def mov(reg1, imm):
+    Regs_dict = {"R0": "000", "R1": "001", "R2": "010", "R3": "011", "R4": "100", "R5": "101", "R6": "110"}
+    if reg1 in Regs_dict and 127>=int(imm[1:])>=0 and imm[0] == "$":
+        decimal = int(imm[1:])
+        binary = ""
+        if decimal==0:
+            binary = "0"
+        else:
+            while (decimal>0):
+                binary = str(decimal%2) + binary
+                decimal = decimal//2
+        
+        if len(binary) == 7:
+            new_bin = binary
+        else:
+            new_bin = (7 - len(binary)) * "0" + binary
+        result = "00010" + "_" + "0" + "_" + Regs_dict[reg1] +"_" + new_bin
+        print(result)
+    else:
+        print("Syntax Error: Invalid register or immediate value length.")
+mov("R3", "$12")
+
+"""
+# ****************************************************************************************************************************
+
+# since both type of opcode are with same name 'mov' so i have changed the name of this function to 'mov1'
+# mov1-- 00011 opcode ===> to copy the content of reg2 to reg1
+"""
+def mov1(reg1,reg2):
+        Regs_dict = {"R0": "000","R1": "001","R2": "010","R3": "011","R4": "100","R5": "101","R6": "110"}
+        if all(key in Regs_dict for key in (reg1, reg2)):
+            result = "00011" + "00000" + Regs_dict[reg1] + Regs_dict[reg2]
+            print(result)
+        else:
+            print("Syntax errors")
+        return None
+mov1("R1", "R2")
+"""
+
+
+
+
+# *****************************************************************************************************************************************
+
+# 7 bit mem_address in binary
+# 1 unused bit
+
+"""
+def ld(reg1,mem_addr):
+    Regs_dict = {"R0": "000","R1": "001","R2": "010","R3": "011","R4": "100","R5": "101","R6": "110"}
+    if reg1 in Regs_dict and len(mem_addr) == 7:
+        if all(bit in "01" for bit in mem_addr):
+            opcode = "00100"
+            unused_bit = "0"
+            result = opcode + unused_bit + Regs_dict[reg1] + mem_addr
+            print(result)
+        else:
+            print("Syntax Error: Immediate value must be binary.")
+"""
+# ******************************************************************************************************************************************** 
+
+
+
+functions added :
+expo reg1 reg2 reg3 -> reg1= reg2** reg3  (A type) 
+addi reg1 $imm-> reg1=reg1+immediate  (b type)
+subi reg1 $imm-> reg1=reg1-immediate  (b type)
+muli reg1 $imm-> reg1=reg1*immediate  (b type)
+divi reg1 $imm -> reg1= reg1/immediate  (b type)
+
+
+
+
+
