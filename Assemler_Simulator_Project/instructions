@@ -1,0 +1,86 @@
+
+#____________________________ALGO OVERVIEW_____________________________
+
+#read the program and find labels with help of program counter 
+
+#read through it next time  and execute the operations using command dictionary and register dictiionary
+
+# when we go through the file again , we will store the instructions and labels in a list of instructions, with program counter as index 
+with each iteration we will progress the program counter by 1 
+
+# WE SHOULD NOTE THAT WHILE WRITING THE BINARY CODE WE MUST CONVERT PROGRAM COUNTER VALUE INTO MEMORY LOCATIONS (7 bits)
+
+
+# for example split the line and strip it (if not a label) ,then see the command it wants to issue 
+
+# read that command and then commands[command ] will give the op code and make a function specific to that command
+
+#in the function it will look at the syntax and raise exceptions if any , if a exception is raised the compilation stops
+and error message is written else it will do what it is supposed to
+ that  is returning a binary code
+
+# which we write into a file 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# since each instruction has 2 bytes 
+#for converting program counter to address just multiply by 2
+
+
+
+
+command_dictionary= {
+    "add":'00000', "sub": '00001',"mov":['00010','00011'],
+    "ld": '00100', "st": '00101',"mul": '00110',
+    "div":'00111', "rs": '01000',"ls":'01001',"xor":'01010',
+    "or":'01011',"and":'01100',"not":'01101',"cmp":'01110',
+    "jmp":'01111',"jlt":'11100',
+    "jgt":'11101',
+    "je":'11111',
+    "hlt":'11010'
+
+}
+
+register_dictionary={"R0":'000',"R1":'001',"R2":'010',"R3":'011',
+"R4":'100',"R5":'101',"R6": '110',"FLAGS":'111'}
+
+
+label={}#keeps track of labels and thier memory address
+
+variables={}# keeps track of variables and thier values
+
+Imm_max=127
+Imm_min=0
+
+
+#to convert decimal to binary
+
+def dec2bin(num, bits):
+    #return bin(num & int("1"*bits, 2))[2:].zfill(bits)
+    return bin(num)[2:]
+
+
+
+
+
+program_counter=0 # will act as program counter
+
+
+memory=[]. # list which will act as memory with instructions loaded with address as index
+labels={}.  # will store labels and  their respective addresses so that its easy to retrieve them
+
+
+
